@@ -19,24 +19,20 @@
 <body>
 <div id='map'></div>
 <script>
-var imageUrl = 'https://farm4.staticflickr.com/3731/14101168818_932d707f90_o.jpg',
+
+L.esri.basemapLayer('Streets').addTo(map);
+
     // This is the trickiest part - you'll need accurate coordinates for the
     // corners of the image. You can find and create appropriate values at
     // http://maps.nypl.org/warper/ or
     // http://www.georeferencer.org/
-    imageBounds = L.latLngBounds([
-        [40.712216, -74.22655],
-        [40.773941, -74.12544]]);
-
-L.esri.basemapLayer('Streets').addTo(map);
-
-var map = L.map('map')
-    .fitBounds(imageBounds);
+var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+    imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
 
 // See full documentation for the ImageOverlay type:
 // http://leafletjs.com/reference.html#imageoverlay
-var overlay = L.imageOverlay(imageUrl, imageBounds)
-    .addTo(map);
+L.imageOverlay(imageUrl, imageBounds).addTo(map);  
+    
 </script>
 </body>
 </html>
