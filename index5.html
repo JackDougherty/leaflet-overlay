@@ -56,6 +56,7 @@
         var map = new L.map('map', {
             center: new L.LatLng(41.76, -72.69),
             zoom: 12,
+            layers: [mapquest, hartford1894]   //default display can be base + overlays [ocm, arcGIS, track]
             zoomControl: true
         });
         // Set the opacity control
@@ -76,7 +77,7 @@
             "Hartford 1894-95": hartford1894,
             "Hartford 1902": hartford1902
         };
-        L.control.layers(baseLayers, overlays).addTo(map);
+        L.control.layers(baseLayers, overlays {position: 'topleft'}).addTo(map);
         // init a map scale
         L.control.scale().addTo(map);    
 	</script>
