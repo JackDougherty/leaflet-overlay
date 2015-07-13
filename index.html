@@ -1,38 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title>ImageOverlay with georeferenced scanned map</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<!-- Load Leaflet from CDN-->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
-  <script src="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.js"></script>
+    <title>A simple Leaflet example map with some controls</title>
+    <meta charset="utf-8" />
 
-  <!-- Load Esri Leaflet from CDN -->
-  <!-- we encourage you to replace 'latest' with a hardcode version number (like '1.0.0-rc.7') in production applications -->
-  <script src="//cdn.jsdelivr.net/leaflet.esri/latest/esri-leaflet.js"></script>
-<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <style type="text/css">html, body, #map {height:100%; width:100%; padding:0px; margin:0px;}</style>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 </head>
 <body>
-<div id='map'></div>
-<script>
+    <div id="map"></div>
+    <script>
+        // init the map object
+        var map = L.map('map', {
+            center: [40.75, -74.15],
+            zoom: 13
+        });
 
-L.esri.basemapLayer('Streets').addTo(map);
-/*
+        // we add some test layers here
+        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+
+        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: osmAttrib
+        });
+        var cycle = L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: osmAttrib
+        });
+        var mapQuest = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg', {
+            maxZoom: 19,
+            attribution: osmAttrib,
+            options: {
+                subdomains: '1234'
+            }
+        }).addTo(map); // this will be our active base layer on startup
+
+        // a layer group with one marker
+        var cities = new L.LayerGroup([
+            L.marker([40.72801, -74.07772]).bindPopup('Jersey City')
+        ]);
+        cities.addTo(map);
+
+        // an image overlay that will be added to the overlays of a layer switcher
     // This is the trickiest part - you'll need accurate coordinates for the
     // corners of the image. You can find and create appropriate values at
     // http://maps.nypl.org/warper/ or
     // http://www.georeferencer.org/
-var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-    imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+        var image = L.imageOverlay(
+            'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+            [[40.712216, -74.22655], [40.773941, -74.12544]], {
+            opacity: .6
+        }).addTo(map);
 
-// See full documentation for the ImageOverlay type:
-// http://leafletjs.com/reference.html#imageoverlay
-L.imageOverlay(imageUrl, imageBounds).addTo(map);  
-*/
-</script>
+        // init a simple layer switcher with overlays an mutual exclusive base layers
+        var baseLayers = {
+            "OpenStreetMap": osm,
+            "OpenCycleMap": cycle,
+            "MapQuest": mapQuest
+        };
+        var overlays = {
+            "Städte": cities,
+            "Bilder": image
+        };
+        L.control.layers(baseLayers, overlays).addTo(map);
+
+        // init a map scale
+        L.control.scale().addTo(map);
+
+        // listen to click events to show a popup window
+        // the content of the popup is plain html
+        // this is a nice example how function chaining is possible with Leaflet
+        map.on('click', function(e) {
+        var popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent('<p>Hello, world!</p>')
+            .openOn(map);
+        });
+    </script>
 </body>
 </html>
