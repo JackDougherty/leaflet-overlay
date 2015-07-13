@@ -55,19 +55,11 @@
         });
         var map = new L.map('map', {
             center: new L.LatLng(41.785317, -72.708806),
-            zoom: 14,
+            zoom: 13,
             layers: [mapQuest, hartford1894],   //default display can be base + overlays [ocm, arcGIS, track]
-            zoomControl: true
+            zoomControl: false   //skip here and add further below
         });
-        // Set the opacity control
-        var opacitySlider = new L.Control.opacitySlider();
-          map.addControl(opacitySlider);
-      //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
-      //You only need to call it once.
-          opacitySlider.setOpacityLayer(hartford1894);
-      //Set initial opacity level (Optional)
-          hartford1894.setOpacity(1.0);
-          
+
         // init a simple layer switcher with overlays an mutual exclusive base layers
         var baseLayers = {
             "OpenStreetMap": osm,
@@ -77,7 +69,18 @@
             "Hartford 1894": hartford1894,
             "Hartford 1902": hartford1902
         };
-        L.control.layers(baseLayers, overlays).addTo(map);
+        L.control.layers(baseLayers, overlays, {position: 'topleft'}).addTo(map);
+        new L.Control.Zoom({position: 'topleft'}).addTo(map);
+        
+        // Set the opacity control
+        var opacitySlider = new L.Control.opacitySlider({position: 'topleft'});
+          map.addControl(opacitySlider);
+      //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
+      //You only need to call it once.
+          opacitySlider.setOpacityLayer(hartford1894);
+      //Set initial opacity level (Optional)
+          hartford1894.setOpacity(1.0);
+        
         // init a map scale
         L.control.scale().addTo(map);    
 	</script>
