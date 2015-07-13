@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Demo</title>
+
+    <!-- Load Leaflet from CDN-->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
+  <script src="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/black-tie/jquery-ui.min.css" />
+
+ <link rel="stylesheet" href="opacity/Control.Opacity.css" />
+<script src="opacity/Control.Opacity.js"></script>
+
+
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+        #map {
+            width: 99%;
+            height: 100%;
+        }
+     </style>
+</head>
+<body>
+	<div id="map"></div>
+    <br>
+
+	<script type="text/JavaScript">
+	var ocmUrl = 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
+	ocmAttr = 'Map data &copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a> and <a href="http://openstreetmap.org">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+	osmAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+	var ocm   = L.tileLayer(ocmUrl, {attribution: ocmAttr}),
+	osm   = L.tileLayer(osmUrl, {attribution: osmAttr});
+    //Create the map
+       var hartford1894 = new L.tileLayer.wms('http://mapwarper.net/maps/wms/10115?', {
+            layers: 'image',
+            maxZoom: 18,
+            format: 'image/png',
+            transparent: true
+        });
+        var map = new L.map('map', {
+            center: new L.LatLng(41.76, -72.69),
+            zoom: 12,
+            layers: [osm, hartford1894],
+            zoomControl: true
+        });
+        // Set the opacity control
+        var opacitySlider = new L.Control.opacitySlider();
+          map.addControl(opacitySlider);
+      //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
+      //You only need to call it once.
+          opacitySlider.setOpacityLayer(hartford1894);
+      //Set initial opacity level (Optional)
+          hartford1894.setOpacity(0.6);
+	</script>
+</body>
+</html>
