@@ -3,4 +3,7 @@ testing leaflet overlay
 
 https://jackdougherty.github.io/leaflet-overlay
 
-code credit: http://bl.ocks.org/bentrm/5aaedf8f2bd9361e280d
+code credits:
+- http://bl.ocks.org/bentrm/5aaedf8f2bd9361e280d
+
+- https://github.com/lizardtechblog/Leaflet.OpacityControls
