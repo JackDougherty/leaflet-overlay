@@ -54,8 +54,8 @@
             transparent: true
         });
         var map = new L.map('map', {
-            center: new L.LatLng(41.76, -72.69),
-            zoom: 12,
+            center: new L.LatLng(41.785317, -72.708806),
+            zoom: 14,
             layers: [mapQuest, hartford1894],   //default display can be base + overlays [ocm, arcGIS, track]
             zoomControl: true
         });
@@ -66,7 +66,7 @@
       //You only need to call it once.
           opacitySlider.setOpacityLayer(hartford1894);
       //Set initial opacity level (Optional)
-          hartford1894.setOpacity(0.6);
+          hartford1894.setOpacity(1.0);
           
         // init a simple layer switcher with overlays an mutual exclusive base layers
         var baseLayers = {
