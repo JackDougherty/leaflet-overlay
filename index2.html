@@ -38,15 +38,15 @@
         }).addTo(map); // this will be our active base layer on startup
         // a layer group with one marker
         var cities = new L.LayerGroup([
-            L.marker([40.72801, -74.07772]).bindPopup('Jersey City')
+            L.marker([41.76, -72.67]).bindPopup('Hartford')
         ]);
         cities.addTo(map);
         // an image overlay that will be added to the overlays of a layer switcher
         // need accurate coordinates for the corners of the image. 
         // http://mapwarper.net/
         var image = L.imageOverlay(
-            'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-            [[40.712216, -74.22655], [40.773941, -74.12544]], {
+            'http://mapwarper.net/maps/wms/10114.jpg',
+            [[41.7188, -72.7199], [41.8098, -74.12544]], {
             opacity: .6
         }).addTo(map);
         // init a simple layer switcher with overlays an mutual exclusive base layers
