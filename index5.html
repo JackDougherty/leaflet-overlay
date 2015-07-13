@@ -28,17 +28,27 @@
 </head>
 <body>
 	<div id="map"></div>
-    <br>
 
 	<script type="text/JavaScript">
-	var ocmUrl = 'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png',
-	ocmAttr = 'Map data &copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a> and <a href="http://openstreetmap.org">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-	osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+	var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 	osmAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-	var ocm   = L.tileLayer(ocmUrl, {attribution: ocmAttr}),
 	osm   = L.tileLayer(osmUrl, {attribution: osmAttr});
+	
+	var mapQuest = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg', {
+            maxZoom: 19,
+            attribution: osmAttrib,
+            options: {
+                subdomains: '1234'
+            }
+        }).addTo(map); // this will be our active base layer on startup
     //Create the map
        var hartford1894 = new L.tileLayer.wms('http://mapwarper.net/maps/wms/10115?', {
+            layers: 'image',
+            maxZoom: 18,
+            format: 'image/png',
+            transparent: true
+        });
+        var hartford1902 = new L.tileLayer.wms('http://mapwarper.net/maps/wms/10117?', {
             layers: 'image',
             maxZoom: 18,
             format: 'image/png',
@@ -47,7 +57,6 @@
         var map = new L.map('map', {
             center: new L.LatLng(41.76, -72.69),
             zoom: 12,
-            layers: [osm, hartford1894],
             zoomControl: true
         });
         // Set the opacity control
@@ -58,6 +67,19 @@
           opacitySlider.setOpacityLayer(hartford1894);
       //Set initial opacity level (Optional)
           hartford1894.setOpacity(0.6);
+          
+        // init a simple layer switcher with overlays an mutual exclusive base layers
+        var baseLayers = {
+            "OpenStreetMap": osm,
+            "MapQuest": mapQuest
+        };
+        var overlays = {
+            "Hartford 1894-95": hartford1894,
+            "Hartford 1902": hartford1902
+        };
+        L.control.layers(baseLayers, overlays).addTo(map);
+        // init a map scale
+        L.control.scale().addTo(map);    
 	</script>
 </body>
 </html>
