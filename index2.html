@@ -42,10 +42,8 @@
         ]);
         cities.addTo(map);
         // an image overlay that will be added to the overlays of a layer switcher
-    // This is the trickiest part - you'll need accurate coordinates for the
-    // corners of the image. You can find and create appropriate values at
-    // http://maps.nypl.org/warper/ or
-    // http://www.georeferencer.org/
+        // need accurate coordinates for the corners of the image. 
+        // http://mapwarper.net/
         var image = L.imageOverlay(
             'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
             [[40.712216, -74.22655], [40.773941, -74.12544]], {
