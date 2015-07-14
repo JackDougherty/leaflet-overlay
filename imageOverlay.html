@@ -20,16 +20,16 @@
             zoom: 13
         });
         // we add some test layers here
-        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var osmAttrib = 'Map data © <a href="//openstreetmap.org">OpenStreetMap</a> contributors';
+        var osm = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: osmAttrib
         });
-        var cycle = L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+        var cycle = L.tileLayer('//{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: osmAttrib
         });
-        var mapQuest = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg', {
+        var mapQuest = L.tileLayer('//otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg', {
             maxZoom: 19,
             attribution: osmAttrib,
             options: {
