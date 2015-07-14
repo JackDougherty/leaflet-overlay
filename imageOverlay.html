@@ -28,14 +28,8 @@
         var cycle = L.tileLayer('//{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: osmAttrib
-        });
-        var mapQuest = L.tileLayer('//otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg', {
-            maxZoom: 19,
-            attribution: osmAttrib,
-            options: {
-                subdomains: '1234'
-            }
         }).addTo(map); // this will be our active base layer on startup
+        
         // a layer group with one marker
         var cities = new L.LayerGroup([
             L.marker([41.76, -72.67]).bindPopup('Hartford')
@@ -52,8 +46,7 @@
         // init a simple layer switcher with overlays an mutual exclusive base layers
         var baseLayers = {
             "OpenStreetMap": osm,
-            "OpenCycleMap": cycle,
-            "MapQuest": mapQuest
+            "OpenCycleMap": cycle
         };
         var overlays = {
             "Marker": cities,
