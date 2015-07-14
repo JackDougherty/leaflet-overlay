@@ -3,9 +3,9 @@ testing leaflet overlay methods
 
 ##demos
 
-https://jackdougherty.github.io/leaflet-overlay/imageOverlay.html
-
 https://jackdougherty.github.io/leaflet-overlay/tileLayerWMS.html
+
+(not working - file too large?) https://jackdougherty.github.io/leaflet-overlay/imageOverlay.html
 
 
 code credits:
