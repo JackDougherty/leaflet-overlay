@@ -28,14 +28,8 @@
         var cycle = L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: osmAttrib
-        });
-        var mapQuest = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg', {
-            maxZoom: 19,
-            attribution: osmAttrib,
-            options: {
-                subdomains: '1234'
-            }
         }).addTo(map); // this will be our active base layer on startup
+        
         // a layer group with one marker
         var cities = new L.LayerGroup([
             L.marker([41.76, -72.67]).bindPopup('Hartford')
@@ -45,15 +39,14 @@
         // need accurate coordinates for the corners of the image.
         // http://mapwarper.net/
         var image = L.imageOverlay(
-            'http://mapwarper.net/maps/export/10115?format=png',
+            'https://mapwarper.net/maps/export/10115?format=png',
             [[41.7188, -72.7199], [41.8098, -72.6418]], {
             opacity: .6
         }).addTo(map);
         // init a simple layer switcher with overlays an mutual exclusive base layers
         var baseLayers = {
             "OpenStreetMap": osm,
-            "OpenCycleMap": cycle,
-            "MapQuest": mapQuest
+            "OpenCycleMap": cycle
         };
         var overlays = {
             "Marker": cities,
